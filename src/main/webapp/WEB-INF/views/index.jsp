@@ -582,8 +582,13 @@
 
             <p>
                 Git<br>
-                Microsoft Office<br>
-                WordPress
+				<p>
+				    Git<br>
+				    GitHub<br>
+				    Docker<br>
+				    Railway<br>
+				    WordPress
+				</p>
             </p>
 
         </div>
