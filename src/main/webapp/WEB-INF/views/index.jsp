@@ -824,7 +824,7 @@
             <div class="project-detail-section">
 
                 <h3>
-                    制作期間
+					制作背景
                 </h3>
 
                 <p>
