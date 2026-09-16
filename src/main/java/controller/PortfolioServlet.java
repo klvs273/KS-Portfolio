@@ -105,9 +105,9 @@ public class PortfolioServlet extends HttpServlet {
                 try {
 
                     id =
-                        Integer.parseInt(
-                                idParameter
-                        );
+                            Integer.parseInt(
+                                    idParameter
+                            );
 
                 } catch (NumberFormatException e) {
 
@@ -205,94 +205,7 @@ public class PortfolioServlet extends HttpServlet {
         } catch (SQLException e) {
 
             // ==========================================
-            // Railway デバッグログ
-            //
-            // パスワードそのものは表示せず、
-            // 環境変数が存在するかだけ確認する。
-            // ==========================================
-
-            System.err.println();
-            System.err.println(
-                    "========== KS DATABASE ERROR =========="
-            );
-
-
-            String dbUrl =
-                    System.getenv(
-                            "PORTFOLIO_DB_URL"
-                    );
-
-            String dbUser =
-                    System.getenv(
-                            "PORTFOLIO_DB_USER"
-                    );
-
-            String dbPassword =
-                    System.getenv(
-                            "PORTFOLIO_DB_PASSWORD"
-                    );
-
-
-            System.err.println(
-                    "PORTFOLIO_DB_URL set: "
-                    + isEnvironmentVariableSet(
-                            dbUrl
-                    )
-            );
-
-            System.err.println(
-                    "PORTFOLIO_DB_USER set: "
-                    + isEnvironmentVariableSet(
-                            dbUser
-                    )
-            );
-
-            System.err.println(
-                    "PORTFOLIO_DB_PASSWORD set: "
-                    + isEnvironmentVariableSet(
-                            dbPassword
-                    )
-            );
-
-
-            // ==========================================
-            // SQLExceptionの内容
-            // ==========================================
-
-            System.err.println(
-                    "SQLException message: "
-                    + e.getMessage()
-            );
-
-            System.err.println(
-                    "SQLState: "
-                    + e.getSQLState()
-            );
-
-            System.err.println(
-                    "ErrorCode: "
-                    + e.getErrorCode()
-            );
-
-
-            // ==========================================
-            // StackTrace
-            // ==========================================
-
-            e.printStackTrace(
-                    System.err
-            );
-
-
-            System.err.println(
-                    "======================================="
-            );
-
-            System.err.println();
-
-
-            // ==========================================
-            // 500エラーへ
+            // DBエラー
             // ==========================================
 
             throw new ServletException(
@@ -300,17 +213,5 @@ public class PortfolioServlet extends HttpServlet {
                     e
             );
         }
-    }
-
-
-    // ==========================================
-    // 環境変数存在チェック
-    // ==========================================
-
-    private boolean isEnvironmentVariableSet(
-            String value) {
-
-        return value != null
-                && !value.isBlank();
     }
 }
