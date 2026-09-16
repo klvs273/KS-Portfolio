@@ -192,7 +192,7 @@
                     ? "active"
                     : "" %>">
 
-            CONTACT
+            LINKS
 
         </a>
 
@@ -269,8 +269,6 @@
 
     </div>
 
-
-    <!-- SYSTEM STATUS -->
 
     <div class="system-status card">
 
@@ -353,8 +351,6 @@
 
     <div class="about-layout">
 
-        <!-- ABOUT ME -->
-
         <div class="card">
 
             <h3>
@@ -383,8 +379,6 @@
 
         </div>
 
-
-        <!-- CURRENT GOAL -->
 
         <div class="card">
 
@@ -451,8 +445,6 @@
     <div class="skill-grid">
 
 
-        <!-- 01 -->
-
         <div class="card">
 
             <p class="card-number">
@@ -473,8 +465,6 @@
         </div>
 
 
-        <!-- 02 -->
-
         <div class="card">
 
             <p class="card-number">
@@ -493,8 +483,6 @@
 
         </div>
 
-
-        <!-- 03 -->
 
         <div class="card">
 
@@ -515,8 +503,6 @@
         </div>
 
 
-        <!-- 04 -->
-
         <div class="card">
 
             <p class="card-number">
@@ -536,8 +522,6 @@
         </div>
 
 
-        <!-- 05 -->
-
         <div class="card">
 
             <p class="card-number">
@@ -555,8 +539,6 @@
 
         </div>
 
-
-        <!-- 06 -->
 
         <div class="card">
 
@@ -631,8 +613,6 @@
         <article class="card work-card">
 
 
-            <!-- IMAGE -->
-
             <%
                 if (work.getImageUrl() != null
                         && !work.getImageUrl().isBlank()) {
@@ -671,8 +651,6 @@
 
                 <div class="work-links">
 
-                    <!-- DETAIL -->
-
                     <a
                         href="<%= request.getContextPath() %>/?page=detail&id=<%= work.getId() %>"
                         class="button button-secondary">
@@ -681,8 +659,6 @@
 
                     </a>
 
-
-                    <!-- GITHUB -->
 
                     <%
                         if (isSafeHttpUrl(
@@ -703,8 +679,6 @@
                         }
                     %>
 
-
-                    <!-- DEMO -->
 
                     <%
                         if (isSafeHttpUrl(
@@ -790,8 +764,6 @@
     <div class="project-detail">
 
 
-        <!-- MAIN IMAGE -->
-
         <%
             if (selectedWork.getImageUrl() != null
                     && !selectedWork.getImageUrl().isBlank()) {
@@ -810,8 +782,6 @@
         %>
 
 
-        <!-- DETAIL CONTENT -->
-
         <div class="card project-detail-content">
 
 
@@ -827,8 +797,6 @@
             </p>
 
 
-            <!-- OVERVIEW -->
-
             <div class="project-detail-section">
 
                 <h3>
@@ -842,8 +810,6 @@
 
             </div>
 
-
-            <!-- DEVELOPMENT PERIOD -->
 
             <%
                 if (
@@ -872,8 +838,6 @@
                 }
             %>
 
-
-            <!-- FEATURES -->
 
             <%
                 if (
@@ -933,8 +897,6 @@
             %>
 
 
-            <!-- DEVELOPMENT POINT -->
-
             <%
                 if (
                     selectedWork
@@ -966,8 +928,6 @@
             %>
 
 
-            <!-- CHALLENGE -->
-
             <%
                 if (
                     selectedWork.getChallenge()
@@ -997,8 +957,6 @@
             %>
 
 
-            <!-- PROJECT ID -->
-
             <div class="project-detail-section">
 
                 <div class="project-meta">
@@ -1015,8 +973,6 @@
 
             </div>
 
-
-            <!-- LINKS -->
 
             <div class="work-links">
 
@@ -1084,10 +1040,6 @@
 
     </div>
 
-
-    <!-- ==================================================
-         SCREENSHOTS
-    ================================================== -->
 
     <%
         if (workImages != null
@@ -1195,8 +1147,6 @@
     <div class="learning-grid">
 
 
-        <!-- 01 -->
-
         <div class="card">
 
             <p class="card-number">
@@ -1215,8 +1165,6 @@
 
         </div>
 
-
-        <!-- 02 -->
 
         <div class="card">
 
@@ -1237,8 +1185,6 @@
         </div>
 
 
-        <!-- 03 -->
-
         <div class="card">
 
             <p class="card-number">
@@ -1258,8 +1204,6 @@
 
         </div>
 
-
-        <!-- 04 -->
 
         <div class="card">
 
@@ -1309,10 +1253,6 @@
         Java Webアプリケーションとして制作しています。
     </p>
 
-
-    <!-- ==================================================
-         SYSTEM TECHNOLOGY
-    ================================================== -->
 
     <div class="skill-grid">
 
@@ -1410,9 +1350,7 @@
     </div>
 
 
-    <!-- ==================================================
-         APPLICATION FLOW
-    ================================================== -->
+    <!-- APPLICATION FLOW -->
 
     <div class="card architecture-card">
 
@@ -1425,8 +1363,6 @@
         </h3>
 
 
-        <!-- REQUEST -->
-
         <p>
             <strong>
                 Request
@@ -1436,46 +1372,22 @@
 
         <div class="architecture-flow">
 
-            <span>
-                Browser
-            </span>
+            <span>Browser</span>
+            <strong>→</strong>
 
-            <strong>
-                →
-            </strong>
+            <span>Servlet</span>
+            <strong>→</strong>
 
-            <span>
-                Servlet
-            </span>
+            <span>Repository</span>
+            <strong>→</strong>
 
-            <strong>
-                →
-            </strong>
+            <span>JDBC</span>
+            <strong>→</strong>
 
-            <span>
-                Repository
-            </span>
-
-            <strong>
-                →
-            </strong>
-
-            <span>
-                JDBC
-            </span>
-
-            <strong>
-                →
-            </strong>
-
-            <span>
-                MySQL
-            </span>
+            <span>MySQL</span>
 
         </div>
 
-
-        <!-- RESPONSE -->
 
         <p>
             <strong>
@@ -1486,58 +1398,29 @@
 
         <div class="architecture-flow">
 
-            <span>
-                MySQL
-            </span>
+            <span>MySQL</span>
+            <strong>→</strong>
 
-            <strong>
-                →
-            </strong>
+            <span>JDBC</span>
+            <strong>→</strong>
 
-            <span>
-                JDBC
-            </span>
+            <span>Repository</span>
+            <strong>→</strong>
 
-            <strong>
-                →
-            </strong>
+            <span>Servlet</span>
+            <strong>→</strong>
 
-            <span>
-                Repository
-            </span>
+            <span>JSP</span>
+            <strong>→</strong>
 
-            <strong>
-                →
-            </strong>
-
-            <span>
-                Servlet
-            </span>
-
-            <strong>
-                →
-            </strong>
-
-            <span>
-                JSP
-            </span>
-
-            <strong>
-                →
-            </strong>
-
-            <span>
-                Browser
-            </span>
+            <span>Browser</span>
 
         </div>
 
     </div>
 
 
-    <!-- ==================================================
-         DEPLOYMENT FLOW
-    ================================================== -->
+    <!-- DEPLOYMENT FLOW -->
 
     <div class="card architecture-card">
 
@@ -1552,49 +1435,27 @@
 
         <div class="architecture-flow">
 
-            <span>
-                GitHub
-            </span>
+            <span>GitHub</span>
+            <strong>→</strong>
 
-            <strong>
-                →
-            </strong>
+            <span>Railway</span>
+            <strong>→</strong>
 
-            <span>
-                Railway
-            </span>
+            <span>Docker</span>
+            <strong>→</strong>
 
-            <strong>
-                →
-            </strong>
+            <span>Tomcat</span>
+            <strong>→</strong>
 
-            <span>
-                Docker
-            </span>
-
-            <strong>
-                →
-            </strong>
-
-            <span>
-                Tomcat
-            </span>
-
-            <strong>
-                →
-            </strong>
-
-            <span>
-                Portfolio
-            </span>
+            <span>Portfolio</span>
 
         </div>
 
 
         <p>
-			GitHubのmainブランチとRailwayを連携し、
-			DockerfileをもとにDockerイメージをビルドして、
-			Tomcat上でWebアプリケーションを実行しています。
+            GitHubのmainブランチとRailwayを連携し、
+            DockerfileをもとにDockerイメージをビルドして、
+            Tomcat上でWebアプリケーションを実行しています。
         </p>
 
         <p>
@@ -1606,9 +1467,7 @@
     </div>
 
 
-    <!-- ==================================================
-         DATABASE
-    ================================================== -->
+    <!-- DATABASE -->
 
     <div class="card">
 
@@ -1636,9 +1495,7 @@
     </div>
 
 
-    <!-- ==================================================
-         SECURITY
-    ================================================== -->
+    <!-- SECURITY -->
 
     <div class="card">
 
@@ -1681,7 +1538,7 @@
 
 
 <!-- ==================================================
-     CONTACT
+     LINKS
 ================================================== -->
 
 <section
@@ -1693,11 +1550,11 @@
 
 
     <p class="section-label">
-        CONTACT / SOURCE CODE
+        PORTFOLIO / SOURCE CODE
     </p>
 
     <h2>
-        CONTACT
+        LINKS
     </h2>
 
 
