@@ -1744,36 +1744,41 @@
         </h3>
 
 
-        <div class="architecture-flow">
+		<div class="architecture-flow">
 
+		    <h3>Application Flow</h3>
 
-            <span>Browser</span>
+		    <p class="flow-label">Request</p>
 
-            <strong>→</strong>
+		    <div class="flow-row">
+		        <span>Browser</span>
+		        <span>→</span>
+		        <span>Servlet</span>
+		        <span>→</span>
+		        <span>Repository</span>
+		        <span>→</span>
+		        <span>JDBC</span>
+		        <span>→</span>
+		        <span>MySQL</span>
+		    </div>
 
-            <span>Servlet</span>
+		    <p class="flow-label">Response</p>
 
-            <strong>→</strong>
+		    <div class="flow-row">
+		        <span>MySQL</span>
+		        <span>→</span>
+		        <span>JDBC</span>
+		        <span>→</span>
+		        <span>Repository</span>
+		        <span>→</span>
+		        <span>Servlet</span>
+		        <span>→</span>
+		        <span>JSP</span>
+		        <span>→</span>
+		        <span>Browser</span>
+		    </div>
 
-            <span>Repository</span>
-
-            <strong>→</strong>
-
-            <span>JDBC</span>
-
-            <strong>→</strong>
-
-            <span>MySQL</span>
-
-            <strong>→</strong>
-
-            <span>JSP</span>
-
-
-        </div>
-
-
-    </div>
+		</div>
 
 
 
