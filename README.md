@@ -1,12 +1,12 @@
 # KS Portfolio
 
-Java / Servlet / JSP / JDBC / MySQL を使用して制作した、
+Java / Servlet / JSP / JDBC / MySQL を使用して制作した、  
 Webアプリケーション形式のポートフォリオサイトです。
 
 ![KS Portfolio](docs/images/portfolio-home.png)
 
-制作物を単純なHTMLへ直接記述するのではなく、
-MySQLに登録された作品情報をJavaから取得し、
+制作物を単純なHTMLへ直接記述するのではなく、  
+MySQLに登録された作品情報をJavaから取得し、  
 Servlet・JSPを通して動的に表示する構成にしています。
 
 ---
@@ -83,10 +83,10 @@ Browser
 
 作品情報はMySQLから取得しています。
 
-Servletがリクエストを受け取り、
+Servletがリクエストを受け取り、  
 Repositoryを通してデータベースへアクセスします。
 
-取得したデータをrequest属性へ格納し、
+取得したデータをrequest属性へ格納し、  
 JSPへforwardして画面を生成します。
 
 ---
@@ -95,8 +95,12 @@ JSPへforwardして画面を生成します。
 
 ## 1. Java Task Management System
 
-Java Servlet / JSP / JDBC / MySQL を使用して制作した
+Java Servlet / JSP / JDBC / MySQL を使用して制作した  
 タスク管理Webアプリケーションです。
+
+### Screenshot
+
+![Java Task Management System](src/main/webapp/images/works/task-manager.png)
 
 ### Technology
 
@@ -125,19 +129,23 @@ Java Servlet / JSP / JDBC / MySQL を使用して制作した
 
 ### Development Points
 
-Servlet・JSP・JDBC・MySQLを組み合わせ、
-画面表示からデータベース処理までを
+Servlet・JSP・JDBC・MySQLを組み合わせ、  
+画面表示からデータベース処理までを  
 一連のWebアプリケーションとして構築しました。
 
-検索・ページング・カテゴリ・お気に入りなど、
+検索・ページング・カテゴリ・お気に入りなど、  
 複数の条件を扱う機能の実装にも取り組みました。
 
 ---
 
 ## 2. VBA Invoice Management System
 
-Excel VBAとUserFormを利用して制作した
+Excel VBAとUserFormを利用して制作した  
 請求書作成・管理システムです。
+
+### Screenshot
+
+![VBA Invoice Management System](src/main/webapp/images/works/vba-invoice-form.png)
 
 ### Technology
 
@@ -162,20 +170,20 @@ Excel VBAとUserFormを利用して制作した
 
 ### Development Points
 
-Excelシートを直接操作するだけではなく、
+Excelシートを直接操作するだけではなく、  
 UserFormを利用してメニュー・入力・検索・管理画面を構築しました。
 
-請求書の入力から検索・編集・削除・帳票生成・PDF出力まで、
+請求書の入力から検索・編集・削除・帳票生成・PDF出力まで、  
 一連の業務を操作できるシステムとして制作しています。
 
 ---
 
 # Database
 
-ポートフォリオに掲載する作品は
+ポートフォリオに掲載する作品は  
 MySQLの `works` テーブルで管理しています。
 
-作品ごとのスクリーンショットは
+作品ごとのスクリーンショットは  
 `work_images` テーブルで管理しています。
 
 ```text
@@ -187,7 +195,7 @@ works
              work_images
 ```
 
-1つの作品に対して、
+1つの作品に対して、  
 複数のスクリーンショットを登録できます。
 
 ---
@@ -198,7 +206,7 @@ works
 
 ### Database Credentials
 
-DB接続情報はJavaソースコードへ直接記述せず、
+DB接続情報はJavaソースコードへ直接記述せず、  
 環境変数から取得しています。
 
 使用する環境変数は次の3つです。
@@ -209,12 +217,12 @@ PORTFOLIO_DB_USER
 PORTFOLIO_DB_PASSWORD
 ```
 
-※ 実際のユーザー名・パスワード等は
+※ 実際のユーザー名・パスワード等は  
 リポジトリへ含めません。
 
 ### Least Privilege
 
-Webアプリケーション専用のMySQLユーザーを作成し、
+Webアプリケーション専用のMySQLユーザーを作成し、  
 必要最小限の権限でデータベースへアクセスしています。
 
 ### SQL Injection
@@ -223,7 +231,7 @@ SQL実行には `PreparedStatement` を使用しています。
 
 ### XSS
 
-データベースからJSPへ表示する文字列は
+データベースからJSPへ表示する文字列は  
 HTMLエスケープ処理を行っています。
 
 ```java
@@ -232,7 +240,7 @@ HtmlUtil.escape(value)
 
 ### External URL Validation
 
-GitHubやDemoなどの外部URLは
+GitHubやDemoなどの外部URLは  
 HTTP / HTTPS のみを許可しています。
 
 ```java
@@ -251,7 +259,7 @@ UrlUtil.safeHttpUrl(value)
 500 Server Error
 ```
 
-例外内容やデータベース接続情報などを
+例外内容やデータベース接続情報などを  
 ブラウザへ直接表示しない構成にしています。
 
 ---
@@ -260,6 +268,10 @@ UrlUtil.safeHttpUrl(value)
 
 ```text
 Portfolio
+│
+├─ docs
+│  └─ images
+│     └─ portfolio-home.png
 │
 ├─ src
 │  └─ main
@@ -290,10 +302,20 @@ Portfolio
 │        │
 │        ├─ images
 │        │  └─ works
+│        │     ├─ task-manager.png
+│        │     ├─ task-list.png
+│        │     ├─ task-new.png
+│        │     ├─ task-login.png
+│        │     ├─ vba-invoice-form.png
+│        │     ├─ vba-invoice-search.png
+│        │     ├─ vba-invoice-sheet.png
+│        │     └─ ...
 │        │
 │        └─ WEB-INF
 │           │
 │           ├─ web.xml
+│           │
+│           ├─ lib
 │           │
 │           └─ views
 │              ├─ index.jsp
@@ -301,6 +323,8 @@ Portfolio
 │              ├─ 404.jsp
 │              └─ 500.jsp
 │
+├─ .classpath
+├─ .project
 ├─ .gitignore
 └─ README.md
 ```
@@ -330,7 +354,7 @@ MySQLにポートフォリオ用データベースを作成します。
 CREATE DATABASE portfolio_db;
 ```
 
-作品情報を保存する `works` テーブルと、
+作品情報を保存する `works` テーブルと、  
 スクリーンショットを保存する `work_images` テーブルを使用します。
 
 ---
@@ -345,7 +369,7 @@ PORTFOLIO_DB_USER
 PORTFOLIO_DB_PASSWORD
 ```
 
-例:
+設定例:
 
 ```text
 PORTFOLIO_DB_URL=jdbc:mysql://localhost:3306/portfolio_db
@@ -353,8 +377,7 @@ PORTFOLIO_DB_USER=your_user
 PORTFOLIO_DB_PASSWORD=your_password
 ```
 
-※ 上記は設定例です。
-
+※ 上記は設定例です。  
 実際の認証情報をGitHubへ登録しないでください。
 
 ---
@@ -391,11 +414,17 @@ http://localhost:8080/Portfolio/
 ?page=detail&id=1
 ```
 
+VBA作品詳細:
+
+```text
+?page=detail&id=3
+```
+
 ---
 
 # Purpose
 
-このポートフォリオでは、
+このポートフォリオでは、  
 完成した制作物を掲載するだけでなく、
 
 - Java Webアプリケーション
@@ -405,7 +434,7 @@ http://localhost:8080/Portfolio/
 - エラーハンドリング
 - レスポンシブUI
 
-など、Webシステムを構築する上で必要となる要素を
+など、Webシステムを構築する上で必要となる要素を  
 実際に組み合わせて実装することを目的としています。
 
 ---
