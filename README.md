@@ -5,6 +5,11 @@ Webアプリケーション形式のポートフォリオサイトです。
 
 ![KS Portfolio](docs/images/portfolio-home.png)
 
+## 🌐 Live Demo
+
+**Production:**  
+https://ks-portfolio-production.up.railway.app/
+
 制作物を単純なHTMLへ直接記述するのではなく、  
 MySQLに登録された作品情報をJavaから取得し、  
 Servlet・JSPを通して動的に表示する構成にしています。
