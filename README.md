@@ -3,6 +3,8 @@
 Java / Servlet / JSP / JDBC / MySQL を使用して制作した、
 Webアプリケーション形式のポートフォリオサイトです。
 
+![KS Portfolio](docs/images/portfolio-home.png)
+
 制作物を単純なHTMLへ直接記述するのではなく、
 MySQLに登録された作品情報をJavaから取得し、
 Servlet・JSPを通して動的に表示する構成にしています。
