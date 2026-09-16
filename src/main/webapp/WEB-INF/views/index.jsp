@@ -3,11 +3,42 @@
          pageEncoding="UTF-8"%>
 
 <%@ page import="java.util.List" %>
+<%@ page import="java.net.URI" %>
+
 <%@ page import="model.Work" %>
 <%@ page import="model.WorkImage" %>
 <%@ page import="util.HtmlUtil" %>
-<%@ page import="util.UrlUtil" %>
 
+<%!
+    /*
+     * GitHub / DEMOなどの外部URLは
+     * http / https のみ許可する
+     */
+    private boolean isSafeHttpUrl(String value) {
+
+        if (value == null
+                || value.isBlank()) {
+            return false;
+        }
+
+        try {
+            URI uri =
+                URI.create(value.trim());
+
+            String scheme =
+                uri.getScheme();
+
+            return (
+                "http".equalsIgnoreCase(scheme)
+                || "https".equalsIgnoreCase(scheme)
+            )
+            && uri.getHost() != null;
+
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
+    }
+%>
 
 <%
     // ==================================================
@@ -26,19 +57,14 @@
     String currentPage =
         (String) request.getAttribute("currentPage");
 
-
     if (currentPage == null
             || currentPage.isBlank()) {
-
         currentPage = "home";
     }
 %>
 
-
 <!DOCTYPE html>
-
 <html lang="ja">
-
 
 <head>
 
@@ -48,21 +74,17 @@
         name="viewport"
         content="width=device-width, initial-scale=1.0">
 
-
     <title>KS Portfolio</title>
-
 
     <meta
         name="description"
         content="KS Java Web Development Portfolio">
-
 
     <link
         rel="stylesheet"
         href="${pageContext.request.contextPath}/css/style.css">
 
 </head>
-
 
 <body>
 
@@ -72,7 +94,6 @@
 ================================================== -->
 
 <header class="header">
-
 
     <div class="logo">
 
@@ -88,7 +109,6 @@
 
 
     <nav class="nav">
-
 
         <a
             href="?page=home"
@@ -176,12 +196,9 @@
 
         </a>
 
-
     </nav>
 
-
 </header>
-
 
 
 <!-- ==================================================
@@ -202,49 +219,32 @@
             ? "active-page"
             : "" %>">
 
-
     <div class="hero-content">
 
-
         <p class="hero-label">
-
             SYSTEM ENGINEER PORTFOLIO
-
         </p>
-
 
         <h1>
-
             KS
-
         </h1>
 
-
         <h2>
-
             Java Web Development
-
         </h2>
 
-
         <p class="hero-description">
-
             Java / Servlet / JSP / JDBC / MySQL
-
         </p>
 
-
         <p>
-
             Javaを中心としたWebアプリケーション開発、
             データベース、サーバー技術について
             学習・制作しています。
-
         </p>
 
 
         <div class="hero-buttons">
-
 
             <button
                 type="button"
@@ -265,107 +265,70 @@
 
             </button>
 
-
         </div>
-
 
     </div>
 
 
-
-    <!-- ==================================================
-         SYSTEM STATUS
-    ================================================== -->
+    <!-- SYSTEM STATUS -->
 
     <div class="system-status card">
 
-
         <p class="section-label">
-
             SYSTEM STATUS
-
         </p>
 
-
         <h3>
-
             Portfolio Application
-
         </h3>
 
-
         <p>
-
             ● ONLINE
-
         </p>
 
 
         <dl>
 
-
             <div>
-
                 <dt>Backend</dt>
-
                 <dd>Java</dd>
-
             </div>
 
-
             <div>
-
                 <dt>Controller</dt>
-
                 <dd>Servlet</dd>
-
             </div>
 
-
             <div>
-
                 <dt>View</dt>
-
                 <dd>JSP</dd>
-
             </div>
 
-
             <div>
-
                 <dt>Database</dt>
-
                 <dd>MySQL</dd>
-
             </div>
 
-
             <div>
-
                 <dt>Database Access</dt>
-
                 <dd>JDBC</dd>
-
             </div>
-
 
             <div>
-
                 <dt>Server</dt>
-
                 <dd>Apache Tomcat</dd>
-
             </div>
 
+            <div>
+                <dt>Deployment</dt>
+                <dd>Railway / Docker</dd>
+            </div>
 
         </dl>
 
-
     </div>
 
-
 </section>
-
 
 
 <!-- ==================================================
@@ -379,72 +342,72 @@
             ? "active-page"
             : "" %>">
 
-
     <p class="section-label">
-
         PROFILE
-
     </p>
 
-
     <h2>
-
         ABOUT
-
     </h2>
 
 
     <div class="about-layout">
 
+        <!-- ABOUT ME -->
 
         <div class="card">
-
 
             <h3>
-
                 About Me
-
             </h3>
 
+            <p>
+                IT分野への理解を深めるため、
+                Javaを中心としたWebアプリケーション開発や、
+                データベース、Linux、ネットワーク、
+                セキュリティについて幅広く学んでいます。
+            </p>
 
-			<p>
-			    Javaを中心に、Webアプリケーション開発やデータベース、
-			    Linux、ネットワーク、セキュリティについて幅広く学んでいます。
-			</p>
+            <p>
+                これまでにServlet・JSP・JDBC・MySQLを使用した
+                タスク管理システムや、
+                Excel VBAを活用した請求書管理システムを制作しました。
+            </p>
 
-			<p>
-			    Servlet・JSP・JDBC・MySQLを使用したタスク管理システムや、
-			    Excel VBAを活用した請求書管理システムを制作しました。
-			</p>
-
-			<p>
-			    エラーの原因を切り分け、調査・修正を重ねながら
-			    システムを完成させることを大切にしています。
-			</p>
-
+            <p>
+                単にコードを書くことだけでなく、
+                エラーの原因を切り分け、
+                調査・修正を重ねながら
+                システムを完成させることを大切にしています。
+            </p>
 
         </div>
 
 
+        <!-- CURRENT GOAL -->
 
         <div class="card">
 
+            <h3>
+                Current Goal
+            </h3>
 
-			<h3>Current Goal</h3>
+            <p>
+                プログラミングだけでなく、
+                データベース・サーバー・ネットワークなど、
+                システム全体を理解できる
+                エンジニアを目指しています。
+            </p>
 
-			<p>
-			    プログラミングだけでなく、データベース・サーバー・ネットワークなど、
-			    システム全体を理解できるエンジニアを目指しています。
-			</p>
-
-			<p>
-			    開発だけでなく、問題の原因を切り分け、改善方法を考えながら、
-			    システムを安定して運用できる力も身につけていきたいと考えています。
-			</p>
-
+            <p>
+                開発だけでなく、
+                問題の原因を切り分け、
+                改善方法を考えながら、
+                システムを安定して運用できる力も
+                身につけていきたいと考えています。
+            </p>
 
         </div>
-
 
     </div>
 
@@ -458,9 +421,7 @@
 
     </button>
 
-
 </section>
-
 
 
 <!-- ==================================================
@@ -474,36 +435,33 @@
             ? "active-page"
             : "" %>">
 
-
     <p class="section-label">
-
         TECHNOLOGY
-
     </p>
 
-
     <h2>
-
         SKILLS
-
     </h2>
 
-
     <p>
-
-        学習・制作で使用している技術です。
-
+        学習および制作・公開環境で使用している技術です。
     </p>
 
 
     <div class="skill-grid">
 
 
+        <!-- 01 -->
+
         <div class="card">
 
-            <p class="card-number">01</p>
+            <p class="card-number">
+                01
+            </p>
 
-            <h3>Backend</h3>
+            <h3>
+                Backend
+            </h3>
 
             <p>
                 Java<br>
@@ -515,11 +473,17 @@
         </div>
 
 
+        <!-- 02 -->
+
         <div class="card">
 
-            <p class="card-number">02</p>
+            <p class="card-number">
+                02
+            </p>
 
-            <h3>Frontend</h3>
+            <h3>
+                Frontend
+            </h3>
 
             <p>
                 HTML<br>
@@ -530,11 +494,17 @@
         </div>
 
 
+        <!-- 03 -->
+
         <div class="card">
 
-            <p class="card-number">03</p>
+            <p class="card-number">
+                03
+            </p>
 
-            <h3>Database</h3>
+            <h3>
+                Database
+            </h3>
 
             <p>
                 MySQL<br>
@@ -545,11 +515,17 @@
         </div>
 
 
+        <!-- 04 -->
+
         <div class="card">
 
-            <p class="card-number">04</p>
+            <p class="card-number">
+                04
+            </p>
 
-            <h3>Server</h3>
+            <h3>
+                Server
+            </h3>
 
             <p>
                 Apache Tomcat<br>
@@ -560,11 +536,17 @@
         </div>
 
 
+        <!-- 05 -->
+
         <div class="card">
 
-            <p class="card-number">05</p>
+            <p class="card-number">
+                05
+            </p>
 
-            <h3>Automation</h3>
+            <h3>
+                Automation
+            </h3>
 
             <p>
                 Google Apps Script<br>
@@ -574,25 +556,27 @@
         </div>
 
 
+        <!-- 06 -->
+
         <div class="card">
 
-            <p class="card-number">06</p>
+            <p class="card-number">
+                06
+            </p>
 
-            <h3>Other</h3>
+            <h3>
+                Development / Deployment
+            </h3>
 
             <p>
                 Git<br>
-				<p>
-				    Git<br>
-				    GitHub<br>
-				    Docker<br>
-				    Railway<br>
-				    WordPress
-				</p>
+                GitHub<br>
+                Docker<br>
+                Railway<br>
+                WordPress
             </p>
 
         </div>
-
 
     </div>
 
@@ -606,9 +590,7 @@
 
     </button>
 
-
 </section>
-
 
 
 <!-- ==================================================
@@ -622,133 +604,72 @@
             ? "active-page"
             : "" %>">
 
-
     <p class="section-label">
-
         DEVELOPMENT
-
     </p>
 
-
     <h2>
-
         WORKS
-
     </h2>
 
-
     <p>
-
         制作したWebアプリケーションや
         業務自動化システムを掲載しています。
-
     </p>
 
 
     <div class="works-grid">
 
-
         <%
-
             if (works != null
                     && !works.isEmpty()) {
 
-
                 for (Work work : works) {
-
-
-                    /*
-                     * ==========================================
-                     * 外部URL安全チェック
-                     * ==========================================
-                     */
-
-                    String safeGithubUrl =
-                        UrlUtil.safeHttpUrl(
-                            work.getGithubUrl()
-                        );
-
-
-                    String safeDemoUrl =
-                        UrlUtil.safeHttpUrl(
-                            work.getDemoUrl()
-                        );
-
         %>
 
 
         <article class="card work-card">
 
 
-            <!-- ==================================================
-                 IMAGE
-            ================================================== -->
+            <!-- IMAGE -->
 
             <%
-
                 if (work.getImageUrl() != null
                         && !work.getImageUrl().isBlank()) {
-
             %>
 
-
             <div class="work-image-wrapper">
-
 
                 <img
                     src="<%= request.getContextPath() %>/<%= HtmlUtil.escape(work.getImageUrl()) %>"
                     alt="<%= HtmlUtil.escape(work.getTitle()) %>"
-                    class="work-image"
-                    loading="lazy">
-
+                    class="work-image">
 
             </div>
 
-
             <%
-
                 }
-
             %>
 
 
-
-            <!-- ==================================================
-                 CONTENT
-            ================================================== -->
-
             <div class="work-content">
 
-
                 <h3>
-
-                    <%= HtmlUtil.escape(
-                        work.getTitle()
-                    ) %>
-
+                    <%= HtmlUtil.escape(work.getTitle()) %>
                 </h3>
 
 
                 <p class="technology">
-
-                    <%= HtmlUtil.escape(
-                        work.getTechnologies()
-                    ) %>
-
+                    <%= HtmlUtil.escape(work.getTechnologies()) %>
                 </p>
 
 
                 <p>
-
-                    <%= HtmlUtil.escape(
-                        work.getDescription()
-                    ) %>
-
+                    <%= HtmlUtil.escape(work.getDescription()) %>
                 </p>
 
 
                 <div class="work-links">
-
 
                     <!-- DETAIL -->
 
@@ -764,14 +685,12 @@
                     <!-- GITHUB -->
 
                     <%
-
-                        if (safeGithubUrl != null) {
-
+                        if (isSafeHttpUrl(
+                                work.getGithubUrl())) {
                     %>
 
-
                     <a
-                        href="<%= HtmlUtil.escape(safeGithubUrl) %>"
+                        href="<%= HtmlUtil.escape(work.getGithubUrl()) %>"
                         target="_blank"
                         rel="noopener noreferrer"
                         class="button">
@@ -780,26 +699,20 @@
 
                     </a>
 
-
                     <%
-
                         }
-
                     %>
-
 
 
                     <!-- DEMO -->
 
                     <%
-
-                        if (safeDemoUrl != null) {
-
+                        if (isSafeHttpUrl(
+                                work.getDemoUrl())) {
                     %>
 
-
                     <a
-                        href="<%= HtmlUtil.escape(safeDemoUrl) %>"
+                        href="<%= HtmlUtil.escape(work.getDemoUrl()) %>"
                         target="_blank"
                         rel="noopener noreferrer"
                         class="button">
@@ -808,65 +721,44 @@
 
                     </a>
 
-
                     <%
-
                         }
-
                     %>
-
 
                 </div>
 
-
             </div>
-
 
         </article>
 
 
         <%
-
                 }
 
-
             } else {
-
         %>
 
 
         <div class="card">
 
-
             <h3>
-
                 NO PROJECTS
-
             </h3>
 
-
             <p>
-
                 現在、制作物を準備しています。
-
             </p>
-
 
         </div>
 
 
         <%
-
             }
-
         %>
-
 
     </div>
 
-
 </section>
-
 
 
 <!-- ==================================================
@@ -880,386 +772,266 @@
             ? "active-page"
             : "" %>">
 
-
     <%
-
         if (selectedWork != null) {
-
-
-            /*
-             * ==========================================
-             * 詳細ページ 外部URL安全チェック
-             * ==========================================
-             */
-
-            String selectedGithubUrl =
-                UrlUtil.safeHttpUrl(
-                    selectedWork.getGithubUrl()
-                );
-
-
-            String selectedDemoUrl =
-                UrlUtil.safeHttpUrl(
-                    selectedWork.getDemoUrl()
-                );
-
     %>
 
 
     <p class="section-label">
-
         PROJECT DETAIL
-
     </p>
 
-
     <h2>
-
         <%= HtmlUtil.escape(
-            selectedWork.getTitle()
-        ) %>
-
+                selectedWork.getTitle()) %>
     </h2>
 
 
     <div class="project-detail">
 
 
-        <!-- ==================================================
-             MAIN IMAGE
-        ================================================== -->
+        <!-- MAIN IMAGE -->
 
         <%
-
             if (selectedWork.getImageUrl() != null
                     && !selectedWork.getImageUrl().isBlank()) {
-
         %>
 
-
         <div class="project-detail-image">
-
 
             <img
                 src="<%= request.getContextPath() %>/<%= HtmlUtil.escape(selectedWork.getImageUrl()) %>"
                 alt="<%= HtmlUtil.escape(selectedWork.getTitle()) %>">
 
-
         </div>
 
-
         <%
-
             }
-
         %>
 
 
-
-        <!-- ==================================================
-             DETAIL CONTENT
-        ================================================== -->
+        <!-- DETAIL CONTENT -->
 
         <div class="card project-detail-content">
 
 
-            <!-- TECHNOLOGY -->
-
             <p class="section-label">
-
                 TECHNOLOGY
-
             </p>
-
 
             <p class="project-detail-technology">
 
                 <%= HtmlUtil.escape(
-                    selectedWork.getTechnologies()
-                ) %>
+                        selectedWork.getTechnologies()) %>
 
             </p>
 
 
-
-            <!-- ==================================================
-                 OVERVIEW
-            ================================================== -->
+            <!-- OVERVIEW -->
 
             <div class="project-detail-section">
 
-
                 <h3>
-
                     概要
-
                 </h3>
 
-
                 <p>
-
                     <%= HtmlUtil.escape(
-                        selectedWork.getDescription()
-                    ) %>
-
+                            selectedWork.getDescription()) %>
                 </p>
-
 
             </div>
 
 
-
-            <!-- ==================================================
-                 DEVELOPMENT PERIOD
-            ================================================== -->
+            <!-- DEVELOPMENT PERIOD -->
 
             <%
-
-                if (selectedWork.getDevelopmentPeriod() != null
-                        && !selectedWork.getDevelopmentPeriod().isBlank()) {
-
+                if (
+                    selectedWork.getDevelopmentPeriod() != null
+                    &&
+                    !selectedWork
+                        .getDevelopmentPeriod()
+                        .isBlank()
+                ) {
             %>
-
 
             <div class="project-detail-section">
 
-
                 <h3>
-
                     制作期間
-
                 </h3>
 
-
                 <p>
-
                     <%= HtmlUtil.escape(
-                        selectedWork.getDevelopmentPeriod()
-                    ) %>
-
+                            selectedWork.getDevelopmentPeriod()) %>
                 </p>
-
 
             </div>
 
-
             <%
-
                 }
-
             %>
 
 
-
-            <!-- ==================================================
-                 FEATURES
-            ================================================== -->
+            <!-- FEATURES -->
 
             <%
-
-                if (selectedWork.getFeatures() != null
-                        && !selectedWork.getFeatures().isBlank()) {
-
+                if (
+                    selectedWork.getFeatures() != null
+                    &&
+                    !selectedWork
+                        .getFeatures()
+                        .isBlank()
+                ) {
             %>
-
 
             <div class="project-detail-section">
 
-
                 <h3>
-
                     実装機能
-
                 </h3>
 
 
                 <div class="feature-tags">
 
-
                     <%
-
                         String[] featureArray =
                             selectedWork
                                 .getFeatures()
                                 .split("、");
 
+                        for (
+                            String feature
+                                : featureArray
+                        ) {
 
-                        for (String feature : featureArray) {
-
-
-                            if (feature != null
-                                    && !feature.isBlank()) {
-
+                            if (
+                                feature != null
+                                &&
+                                !feature.isBlank()
+                            ) {
                     %>
-
 
                     <span class="feature-tag">
 
                         <%= HtmlUtil.escape(
-                            feature.trim()
-                        ) %>
+                                feature.trim()) %>
 
                     </span>
 
-
                     <%
-
                             }
-
                         }
-
                     %>
-
 
                 </div>
 
-
             </div>
 
-
             <%
-
                 }
-
             %>
 
 
-
-            <!-- ==================================================
-                 DEVELOPMENT POINT
-            ================================================== -->
+            <!-- DEVELOPMENT POINT -->
 
             <%
-
-                if (selectedWork.getDevelopmentPoint() != null
-                        && !selectedWork.getDevelopmentPoint().isBlank()) {
-
+                if (
+                    selectedWork
+                        .getDevelopmentPoint()
+                        != null
+                    &&
+                    !selectedWork
+                        .getDevelopmentPoint()
+                        .isBlank()
+                ) {
             %>
-
 
             <div class="project-detail-section">
 
-
                 <h3>
-
                     工夫した点
-
                 </h3>
 
-
                 <p>
-
                     <%= HtmlUtil.escape(
-                        selectedWork.getDevelopmentPoint()
-                    ) %>
-
+                        selectedWork
+                            .getDevelopmentPoint()) %>
                 </p>
-
 
             </div>
 
-
             <%
-
                 }
-
             %>
 
 
-
-            <!-- ==================================================
-                 CHALLENGE
-            ================================================== -->
+            <!-- CHALLENGE -->
 
             <%
-
-                if (selectedWork.getChallenge() != null
-                        && !selectedWork.getChallenge().isBlank()) {
-
+                if (
+                    selectedWork.getChallenge()
+                        != null
+                    &&
+                    !selectedWork
+                        .getChallenge()
+                        .isBlank()
+                ) {
             %>
-
 
             <div class="project-detail-section">
-
 
                 <h3>
-
                     苦労した点・課題
-
                 </h3>
 
-
                 <p>
-
                     <%= HtmlUtil.escape(
-                        selectedWork.getChallenge()
-                    ) %>
-
+                            selectedWork.getChallenge()) %>
                 </p>
-
 
             </div>
 
-
             <%
-
                 }
-
             %>
 
 
-
-            <!-- ==================================================
-                 PROJECT ID
-            ================================================== -->
+            <!-- PROJECT ID -->
 
             <div class="project-detail-section">
-
 
                 <div class="project-meta">
 
-
                     <span>
-
                         PROJECT ID
-
                     </span>
 
-
                     <strong>
-
                         #<%= selectedWork.getId() %>
-
                     </strong>
 
-
                 </div>
-
 
             </div>
 
 
-
-            <!-- ==================================================
-                 LINKS
-            ================================================== -->
+            <!-- LINKS -->
 
             <div class="work-links">
 
 
-                <!-- GITHUB -->
-
                 <%
-
-                    if (selectedGithubUrl != null) {
-
+                    if (
+                        isSafeHttpUrl(
+                            selectedWork
+                                .getGithubUrl()
+                        )
+                    ) {
                 %>
 
-
                 <a
-                    href="<%= HtmlUtil.escape(
-                        selectedGithubUrl
-                    ) %>"
+                    href="<%= HtmlUtil.escape(selectedWork.getGithubUrl()) %>"
                     target="_blank"
                     rel="noopener noreferrer"
                     class="button">
@@ -1268,28 +1040,22 @@
 
                 </a>
 
-
                 <%
-
                     }
-
                 %>
 
-
-
-                <!-- DEMO -->
 
                 <%
-
-                    if (selectedDemoUrl != null) {
-
+                    if (
+                        isSafeHttpUrl(
+                            selectedWork
+                                .getDemoUrl()
+                        )
+                    ) {
                 %>
-
 
                 <a
-                    href="<%= HtmlUtil.escape(
-                        selectedDemoUrl
-                    ) %>"
+                    href="<%= HtmlUtil.escape(selectedWork.getDemoUrl()) %>"
                     target="_blank"
                     rel="noopener noreferrer"
                     class="button">
@@ -1298,16 +1064,10 @@
 
                 </a>
 
-
                 <%
-
                     }
-
                 %>
 
-
-
-                <!-- BACK -->
 
                 <button
                     type="button"
@@ -1318,151 +1078,98 @@
 
                 </button>
 
-
             </div>
 
-
         </div>
-
 
     </div>
 
 
-
     <!-- ==================================================
-         SCREENSHOT GALLERY
+         SCREENSHOTS
     ================================================== -->
 
     <%
-
         if (workImages != null
                 && !workImages.isEmpty()) {
-
     %>
 
+    <section class="project-gallery">
 
-    <div class="project-gallery">
+        <p class="section-label">
+            SCREENSHOTS
+        </p>
 
+        <h2>
+            Application Screens
+        </h2>
 
-        <div class="project-gallery-header">
-
-
-            <p class="section-label">
-
-                SCREENSHOTS
-
-            </p>
-
-
-            <h3>
-
-                Application Screens
-
-            </h3>
-
-
-            <p>
-
-                実装した主要画面です。
-                画像をクリックすると拡大表示できます。
-
-            </p>
-
-
-        </div>
-
+        <p>
+            実装した主要画面です。
+            画像をクリックすると拡大表示できます。
+        </p>
 
 
         <div class="project-gallery-grid">
 
-
             <%
+                for (
+                    WorkImage image
+                        : workImages
+                ) {
 
-                for (WorkImage image : workImages) {
+                    String caption =
+                        image.getCaption();
 
-
-                    String imageCaption =
-                        image.getCaption() != null
-                            ? image.getCaption()
-                            : selectedWork.getTitle();
-
+                    if (
+                        caption == null
+                        ||
+                        caption.isBlank()
+                    ) {
+                        caption =
+                            selectedWork
+                                .getTitle();
+                    }
             %>
 
 
             <button
                 type="button"
-                class="gallery-card js-gallery-open">
+                class="gallery-item js-gallery-open">
 
+                <img
+                    src="<%= request.getContextPath() %>/<%= HtmlUtil.escape(image.getImagePath()) %>"
+                    alt="<%= HtmlUtil.escape(caption) %>"
+                    class="gallery-image">
 
-                <div class="gallery-image-wrapper">
-
-
-                    <img
-                        src="<%= request.getContextPath() %>/<%= HtmlUtil.escape(image.getImagePath()) %>"
-                        alt="<%= HtmlUtil.escape(imageCaption) %>"
-                        class="gallery-image"
-                        loading="lazy">
-
-
-                </div>
-
-
-                <%
-
-                    if (image.getCaption() != null
-                            && !image.getCaption().isBlank()) {
-
-                %>
-
-
-                <div class="gallery-caption">
+                <span class="gallery-caption">
 
                     <%= HtmlUtil.escape(
-                        image.getCaption()
-                    ) %>
+                            caption) %>
 
-                </div>
-
-
-                <%
-
-                    }
-
-                %>
-
+                </span>
 
             </button>
 
 
             <%
-
                 }
-
             %>
-
 
         </div>
 
-
-    </div>
-
+    </section>
 
     <%
-
         }
-
     %>
 
 
     <%
-
         }
-
     %>
-
 
 </section>
-
 
 
 <!-- ==================================================
@@ -1476,147 +1183,105 @@
             ? "active-page"
             : "" %>">
 
-
     <p class="section-label">
-
         CURRENTLY LEARNING
-
     </p>
 
-
     <h2>
-
         LEARNING
-
     </h2>
 
 
     <div class="learning-grid">
 
 
+        <!-- 01 -->
+
         <div class="card">
 
-
             <p class="card-number">
-
                 01
-
             </p>
-
 
             <h3>
-
                 Java Web Development
-
             </h3>
 
-
             <p>
-
-				Java / Servlet / JSP / JDBC / MySQLを使用した <br>
-				Webアプリケーション開発を通して、<br>
-				MVC構成やデータベース連携について理解を深めています。
-
+                Java / Servlet / JSP / JDBC /
+                MySQLを利用した
+                Webアプリケーション開発。
             </p>
-
 
         </div>
 
 
+        <!-- 02 -->
+
         <div class="card">
 
-
             <p class="card-number">
-
                 02
-
             </p>
 
-
             <h3>
-
                 Database
-
             </h3>
 
-
             <p>
-
                 SQL、JOIN、GROUP BY、
                 HAVING、サブクエリなどを
                 学習しています。
-
             </p>
-
 
         </div>
 
 
+        <!-- 03 -->
+
         <div class="card">
 
-
             <p class="card-number">
-
                 03
-
             </p>
-
 
             <h3>
-
                 Server / Network
-
             </h3>
 
-
             <p>
-
-
-				Linux、Apache、TCP/IP、サブネット、<br>
-				NAT・VPNなどのネットワーク技術と、<br>
-				Webセキュリティについて学習しています。
-
+                Linux、Apache、
+                TCP/IP、ネットワーク、
+                セキュリティについて
+                学習しています。
             </p>
-
 
         </div>
 
+
+        <!-- 04 -->
 
         <div class="card">
 
-
             <p class="card-number">
-
                 04
-
             </p>
-
 
             <h3>
-
                 Certification
-
             </h3>
 
-
             <p>
-
-				ITパスポート試験に合格しました。<br>
-				現在は基本情報技術者試験の取得に向けて、<br>
-				コンピュータ基礎・アルゴリズム・ネットワーク・<br>
-				セキュリティなどの学習を継続しています。
-
+                ITパスポート試験に合格し、
+                現在は基本情報技術者試験に向けて
+                学習を継続しています。
             </p>
 
-
         </div>
-
 
     </div>
 
-
 </section>
-
 
 
 <!-- ==================================================
@@ -1632,154 +1297,314 @@
 
 
     <p class="section-label">
-
         ABOUT THIS APPLICATION
-
     </p>
-
 
     <h2>
-
         SYSTEM
-
     </h2>
 
-
     <p>
-
         このポートフォリオ自体を
         Java Webアプリケーションとして制作しています。
-
     </p>
 
+
+    <!-- ==================================================
+         SYSTEM TECHNOLOGY
+    ================================================== -->
 
     <div class="skill-grid">
 
 
         <div class="card">
 
-            <h3>Backend</h3>
+            <h3>
+                Backend
+            </h3>
 
-            <p>Java</p>
-
-        </div>
-
-
-        <div class="card">
-
-            <h3>Controller</h3>
-
-            <p>Servlet</p>
+            <p>
+                Java
+            </p>
 
         </div>
 
 
         <div class="card">
 
-            <h3>View</h3>
+            <h3>
+                Controller
+            </h3>
 
-            <p>JSP</p>
-
-        </div>
-
-
-        <div class="card">
-
-            <h3>Repository</h3>
-
-            <p>Java Repository Class</p>
+            <p>
+                Servlet
+            </p>
 
         </div>
 
 
         <div class="card">
 
-            <h3>Database Access</h3>
+            <h3>
+                View
+            </h3>
 
-            <p>JDBC</p>
-
-        </div>
-
-
-        <div class="card">
-
-            <h3>Database</h3>
-
-            <p>MySQL</p>
+            <p>
+                JSP
+            </p>
 
         </div>
 
 
         <div class="card">
 
-            <h3>Application Server</h3>
+            <h3>
+                Repository
+            </h3>
 
-            <p>Apache Tomcat</p>
+            <p>
+                Java Repository Class
+            </p>
 
         </div>
 
+
+        <div class="card">
+
+            <h3>
+                Database Access
+            </h3>
+
+            <p>
+                JDBC
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>
+                Database
+            </h3>
+
+            <p>
+                MySQL
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>
+                Application Server
+            </h3>
+
+            <p>
+                Apache Tomcat
+            </p>
+
+        </div>
 
     </div>
 
 
-
     <!-- ==================================================
-         ARCHITECTURE
+         APPLICATION FLOW
     ================================================== -->
 
     <div class="card architecture-card">
 
-
         <p class="section-label">
-
             ARCHITECTURE
-
         </p>
 
-
         <h3>
-
             Application Flow
-
         </h3>
 
 
-		<div class="architecture-flow">
+        <!-- REQUEST -->
 
-		    <h3>Application Flow</h3>
+        <p>
+            <strong>
+                Request
+            </strong>
+        </p>
 
-		    <p class="flow-label">Request</p>
 
-		    <div class="flow-row">
-		        <span>Browser</span>
-		        <span>→</span>
-		        <span>Servlet</span>
-		        <span>→</span>
-		        <span>Repository</span>
-		        <span>→</span>
-		        <span>JDBC</span>
-		        <span>→</span>
-		        <span>MySQL</span>
-		    </div>
+        <div class="architecture-flow">
 
-		    <p class="flow-label">Response</p>
+            <span>
+                Browser
+            </span>
 
-		    <div class="flow-row">
-		        <span>MySQL</span>
-		        <span>→</span>
-		        <span>JDBC</span>
-		        <span>→</span>
-		        <span>Repository</span>
-		        <span>→</span>
-		        <span>Servlet</span>
-		        <span>→</span>
-		        <span>JSP</span>
-		        <span>→</span>
-		        <span>Browser</span>
-		    </div>
+            <strong>
+                →
+            </strong>
 
-		</div>
+            <span>
+                Servlet
+            </span>
 
+            <strong>
+                →
+            </strong>
+
+            <span>
+                Repository
+            </span>
+
+            <strong>
+                →
+            </strong>
+
+            <span>
+                JDBC
+            </span>
+
+            <strong>
+                →
+            </strong>
+
+            <span>
+                MySQL
+            </span>
+
+        </div>
+
+
+        <!-- RESPONSE -->
+
+        <p>
+            <strong>
+                Response
+            </strong>
+        </p>
+
+
+        <div class="architecture-flow">
+
+            <span>
+                MySQL
+            </span>
+
+            <strong>
+                →
+            </strong>
+
+            <span>
+                JDBC
+            </span>
+
+            <strong>
+                →
+            </strong>
+
+            <span>
+                Repository
+            </span>
+
+            <strong>
+                →
+            </strong>
+
+            <span>
+                Servlet
+            </span>
+
+            <strong>
+                →
+            </strong>
+
+            <span>
+                JSP
+            </span>
+
+            <strong>
+                →
+            </strong>
+
+            <span>
+                Browser
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         DEPLOYMENT FLOW
+    ================================================== -->
+
+    <div class="card architecture-card">
+
+        <p class="section-label">
+            DEPLOYMENT
+        </p>
+
+        <h3>
+            Deployment Flow
+        </h3>
+
+
+        <div class="architecture-flow">
+
+            <span>
+                GitHub
+            </span>
+
+            <strong>
+                →
+            </strong>
+
+            <span>
+                Railway
+            </span>
+
+            <strong>
+                →
+            </strong>
+
+            <span>
+                Docker
+            </span>
+
+            <strong>
+                →
+            </strong>
+
+            <span>
+                Tomcat
+            </span>
+
+            <strong>
+                →
+            </strong>
+
+            <span>
+                Portfolio
+            </span>
+
+        </div>
+
+
+        <p>
+            GitHubのmainブランチへPushすると
+            Railwayが変更を検知し、
+            Dockerイメージを自動ビルドして
+            本番環境へデプロイします。
+        </p>
+
+        <p>
+            MySQLはRailwayのPrivate Networkingを利用して接続し、
+            データベース接続情報は
+            Railwayの環境変数から取得しています。
+        </p>
+
+    </div>
 
 
     <!-- ==================================================
@@ -1788,42 +1613,28 @@
 
     <div class="card">
 
-
         <h3>
-
             Database Driven
-
         </h3>
 
-
         <p>
-
             WORKSに表示する制作物は
             MySQLデータベースで管理しています。
-
         </p>
 
-
         <p>
-
             WorkRepositoryからJDBCを利用して
             データを取得し、
             Servletを経由してJSPへ渡しています。
-
         </p>
 
-
         <p>
-
             データベースを変更することで、
             Javaコードを直接変更せずに
             WORKSの内容を更新できます。
-
         </p>
 
-
     </div>
-
 
 
     <!-- ==================================================
@@ -1832,64 +1643,42 @@
 
     <div class="card">
 
-
         <h3>
-
             Security
-
         </h3>
 
-
         <p>
-
             データベースの接続情報は
             Javaソースコードへ直接記述せず、
             環境変数から取得しています。
-
         </p>
 
-
         <p>
-
-            Webアプリケーション専用の
-            MySQLユーザーを使用し、
-            必要最小限の権限で
-            データベースへアクセスしています。
-
-        </p>
-
-
-        <p>
-
             SQL実行にはPreparedStatementを利用し、
             SQLインジェクション対策を意識しています。
-
         </p>
 
-
         <p>
-
             データベースから画面へ出力する文字列は
             HTMLエスケープを行い、
             XSS対策を実施しています。
-
         </p>
 
-
         <p>
-
             GitHubやDEMOなどの外部リンクは、
             HTTP / HTTPSのみを許可する
             URL検証を行っています。
-
         </p>
 
+        <p>
+            本番環境のMySQLは
+            RailwayのPrivate Networkingを利用し、
+            通常はPublic Accessを無効にしています。
+        </p>
 
     </div>
 
-
 </section>
-
 
 
 <!-- ==================================================
@@ -1905,75 +1694,85 @@
 
 
     <p class="section-label">
-
         CONTACT / SOURCE CODE
-
     </p>
 
-
     <h2>
-
         CONTACT
-
     </h2>
 
 
     <div class="contact-layout">
 
 
+        <!-- GITHUB -->
+
         <div class="card">
 
-
             <h3>
-
                 GitHub
-
             </h3>
 
-
             <p>
-
                 Java Webアプリケーションや
                 学習成果物のソースコードを
-                GitHubへ掲載予定です。
-
+                GitHubで公開しています。
             </p>
 
+            <a
+                href="https://github.com/klvs273/KS-Portfolio"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="button">
+
+                VIEW GITHUB
+
+            </a>
 
         </div>
 
+
+        <!-- PORTFOLIO -->
 
         <div class="card">
 
-
             <h3>
-
                 Portfolio
-
             </h3>
 
-
             <p>
-
                 本サイト自体も
                 Java / Servlet / JSP / JDBC /
-                MySQLで制作した
-                ポートフォリオ作品です。
-
+                MySQLを利用して制作し、
+                Docker・Railwayを利用して
+                公開しているポートフォリオ作品です。
             </p>
-
 
         </div>
 
-
     </div>
-
 
 </section>
 
 
 </main>
 
+
+<!-- ==================================================
+     FOOTER
+================================================== -->
+
+<footer class="footer">
+
+    <p>
+        © 2026 KS Portfolio
+    </p>
+
+    <p>
+        Built with Java / Servlet / JSP / JDBC / MySQL
+    </p>
+
+</footer>
 
 
 <!-- ==================================================
@@ -1983,13 +1782,8 @@
 <div
     id="imageLightbox"
     class="image-lightbox"
-    role="dialog"
-    aria-modal="true"
-    aria-hidden="true"
-    aria-label="スクリーンショット拡大表示">
+    aria-hidden="true">
 
-
-    <!-- CLOSE -->
 
     <button
         type="button"
@@ -2002,8 +1796,6 @@
     </button>
 
 
-    <!-- PREVIOUS -->
-
     <button
         type="button"
         id="lightboxPrev"
@@ -2015,7 +1807,20 @@
     </button>
 
 
-    <!-- NEXT -->
+    <div class="lightbox-content">
+
+        <img
+            id="lightboxImage"
+            src=""
+            alt="">
+
+        <p
+            id="lightboxCaption"
+            class="lightbox-caption">
+        </p>
+
+    </div>
+
 
     <button
         type="button"
@@ -2027,54 +1832,7 @@
 
     </button>
 
-
-    <!-- IMAGE -->
-
-    <div class="lightbox-content">
-
-
-        <img
-            id="lightboxImage"
-            src=""
-            alt="">
-
-
-        <p
-            id="lightboxCaption"
-            class="lightbox-caption">
-        </p>
-
-
-    </div>
-
-
 </div>
-
-
-
-<!-- ==================================================
-     FOOTER
-================================================== -->
-
-<footer class="footer">
-
-
-    <p>
-
-        © 2026 KS Portfolio
-
-    </p>
-
-
-    <p>
-
-        Built with Java / Servlet / JSP / JDBC / MySQL
-
-    </p>
-
-
-</footer>
-
 
 
 <!-- ==================================================
