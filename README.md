@@ -136,6 +136,11 @@ Servlet・JSP・JDBC・MySQLを組み合わせ、
 検索・ページング・カテゴリ・お気に入りなど、  
 複数の条件を扱う機能の実装にも取り組みました。
 
+### Challenges
+
+JDBC接続、認証処理、検索条件とページングの組み合わせ、  
+お気に入り機能などで発生した問題を切り分けながら修正しました。
+
 ---
 
 ## 2. VBA Invoice Management System
@@ -175,6 +180,12 @@ UserFormを利用してメニュー・入力・検索・管理画面を構築し
 
 請求書の入力から検索・編集・削除・帳票生成・PDF出力まで、  
 一連の業務を操作できるシステムとして制作しています。
+
+### Challenges
+
+請求書データ、取引先情報、明細データを扱いながら、  
+検索条件による絞り込み、金額計算、請求書生成、PDF出力など、  
+複数の処理を連携させる点に取り組みました。
 
 ---
 
@@ -217,7 +228,7 @@ PORTFOLIO_DB_USER
 PORTFOLIO_DB_PASSWORD
 ```
 
-※ 実際のユーザー名・パスワード等は  
+実際のユーザー名・パスワード等は  
 リポジトリへ含めません。
 
 ### Least Privilege
@@ -269,6 +280,10 @@ UrlUtil.safeHttpUrl(value)
 ```text
 Portfolio
 │
+├─ database
+│  ├─ schema.sql
+│  └─ sample_data.sql
+│
 ├─ docs
 │  └─ images
 │     └─ portfolio-home.png
@@ -307,15 +322,19 @@ Portfolio
 │        │     ├─ task-new.png
 │        │     ├─ task-login.png
 │        │     ├─ vba-invoice-form.png
+│        │     ├─ vba-invoice-menu-create.png
 │        │     ├─ vba-invoice-search.png
 │        │     ├─ vba-invoice-sheet.png
-│        │     └─ ...
+│        │     ├─ vba-invoice-pdf-confirm.png
+│        │     └─ vba-invoice-statistics.png
 │        │
 │        └─ WEB-INF
 │           │
 │           ├─ web.xml
-│           │
 │           ├─ lib
+│           │  ├─ jstl-api-1.2.jar
+│           │  ├─ jstl-impl-1.2.jar
+│           │  └─ mysql-connector-j-*.jar
 │           │
 │           └─ views
 │              ├─ index.jsp
@@ -346,22 +365,80 @@ Eclipse IDE
 
 ---
 
-## 2. Database
+## 2. Clone Repository
 
-MySQLにポートフォリオ用データベースを作成します。
+リポジトリをcloneします。
 
-```sql
-CREATE DATABASE portfolio_db;
+```bash
+git clone https://github.com/klvs273/KS-Portfolio.git
 ```
 
-作品情報を保存する `works` テーブルと、  
-スクリーンショットを保存する `work_images` テーブルを使用します。
+プロジェクトフォルダへ移動します。
+
+```bash
+cd KS-Portfolio
+```
 
 ---
 
-## 3. Environment Variables
+## 3. Database
 
-Tomcatの実行環境へ以下を設定します。
+MySQLへ接続し、以下のSQLファイルを順番に実行します。
+
+### ① テーブル作成
+
+```text
+database/schema.sql
+```
+
+このSQLで以下を作成します。
+
+```text
+portfolio_db
+works
+work_images
+```
+
+### ② サンプルデータ登録
+
+```text
+database/sample_data.sql
+```
+
+このSQLでポートフォリオに表示する作品情報と  
+スクリーンショット情報を登録します。
+
+登録される主な作品:
+
+```text
+Java Task Management System
+VBA Invoice Management System
+```
+
+---
+
+## 4. Database User
+
+Webアプリケーションから接続するための  
+専用MySQLユーザーを用意します。
+
+セキュリティ上、  
+rootユーザーをWebアプリケーションから  
+直接使用しない構成を推奨します。
+
+このポートフォリオでは、  
+アプリケーションに必要な最小限の権限で  
+データベースへアクセスする構成にしています。
+
+実際のユーザー名・パスワードは  
+リポジトリには含めていません。
+
+---
+
+## 5. Environment Variables
+
+Tomcatの実行環境へ  
+以下の環境変数を設定します。
 
 ```text
 PORTFOLIO_DB_URL
@@ -377,19 +454,63 @@ PORTFOLIO_DB_USER=your_user
 PORTFOLIO_DB_PASSWORD=your_password
 ```
 
-※ 上記は設定例です。  
+`your_user` と `your_password` は  
+各環境で作成したMySQLユーザーの情報へ変更してください。
+
 実際の認証情報をGitHubへ登録しないでください。
 
 ---
 
-## 4. Start Tomcat
+## 6. Import Project
 
-TomcatへPortfolioプロジェクトを追加して起動します。
+Eclipseから既存プロジェクトとして  
+`KS-Portfolio` を読み込みます。
+
+使用するJava:
+
+```text
+Java 17
+```
+
+使用するサーバー:
+
+```text
+Apache Tomcat 9
+```
+
+---
+
+## 7. Start Tomcat
+
+TomcatへPortfolioプロジェクトを追加して  
+サーバーを起動します。
 
 ローカル環境では以下からアクセスします。
 
 ```text
 http://localhost:8080/Portfolio/
+```
+
+---
+
+## Setup Flow
+
+```text
+GitHub Clone
+     ↓
+schema.sql
+     ↓
+sample_data.sql
+     ↓
+MySQLユーザー設定
+     ↓
+環境変数設定
+     ↓
+EclipseへImport
+     ↓
+Tomcat起動
+     ↓
+KS Portfolio
 ```
 
 ---
@@ -408,7 +529,7 @@ http://localhost:8080/Portfolio/
 ?page=detail&id=999999
 ```
 
-正常な作品詳細:
+正常なJava作品詳細:
 
 ```text
 ?page=detail&id=1
