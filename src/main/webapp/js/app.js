@@ -57,7 +57,7 @@ const pageTitles = {
         "System | KS Portfolio",
 
     contact:
-        "Contact | KS Portfolio"
+        "Links | KS Portfolio"
 
 };
 
