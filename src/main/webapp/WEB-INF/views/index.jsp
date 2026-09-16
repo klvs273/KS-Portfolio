@@ -1592,10 +1592,9 @@
 
 
         <p>
-            GitHubのmainブランチへPushすると
-            Railwayが変更を検知し、
-            Dockerイメージを自動ビルドして
-            本番環境へデプロイします。
+			GitHubのmainブランチとRailwayを連携し、
+			DockerfileをもとにDockerイメージをビルドして、
+			Tomcat上でWebアプリケーションを実行しています。
         </p>
 
         <p>
